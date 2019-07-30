@@ -23,7 +23,7 @@ class HashTable:
     # '''
     # Research and implement the djb2 hash function
     # '''
-    def hash(string, max):
+    def hash(self, string, max):
         hash = 5381
 
         for character in string:
@@ -36,7 +36,7 @@ class HashTable:
 
     # Hint: Used the LL to handle collisions
     # '''
-    def hash_table_insert(self, hash_table, key, value):
+    def insert(self, key, value):
         key_hash = hash(key, self.capacity)
 
         if self.storage[key_hash] is None:
@@ -57,34 +57,41 @@ class HashTable:
 
     # If you try to remove a value that isn't there, print a warning.
     # '''
-    def hash_table_remove(hash_table, key):
+    def remove(self, key):
         pass
 
     # Should return None if the key is not found.
     # '''
-    def hash_table_retrieve(hash_table, key):
-        pass
+    def retrieve(self, key):
+        key_hash = hash(key, self.capacity)
+
+        pair = self.storage[key_hash]
+
+        while pair.key != key:
+            pair = pair.next
+
+        return pair
 
     # '''
     # Fill this in
     # '''
-    def hash_table_resize(hash_table):
+    def resize(self):
         pass
 
 
 def Testing():
     ht = HashTable(2)
 
-    hash_table_insert(ht, "line_1", "Tiny hash table")
-    hash_table_insert(ht, "line_2", "Filled beyond capacity")
-    hash_table_insert(ht, "line_3", "Linked list saves the day!")
+    ht.insert("line_1", "Tiny hash table")
+    ht.insert("line_2", "Filled beyond capacity")
+    ht.insert("line_3", "Linked list saves the day!")
 
-    print(hash_table_retrieve(ht, "line_1"))
-    print(hash_table_retrieve(ht, "line_2"))
-    print(hash_table_retrieve(ht, "line_3"))
+    print(ht.retrieve("line_1"))
+    print(ht.retrieve("line_2"))
+    print(ht.retrieve("line_3"))
 
     old_capacity = len(ht.storage)
-    ht = hash_table_resize(ht)
+    ht = ht.resize()
     new_capacity = len(ht.storage)
 
     print("Resized hash table from " + str(old_capacity)
