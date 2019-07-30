@@ -76,7 +76,9 @@ class HashTable:
     # Fill this in
     # '''
     def resize(self):
-        pass
+        extra_storage = [None]*self.capacity
+        self.storage = self.storage + extra_storage
+        self.capacity = len(self.storage)
 
 
 def Testing():
